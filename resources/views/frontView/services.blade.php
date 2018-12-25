@@ -3,6 +3,7 @@
     <style>
 #photo {
     border-radius: 50%;
+    width: 200px;height: 200px;
     }
     ul.a {
     list-style-type: square;
@@ -11,7 +12,7 @@
 </style>
    
     <section class="home-slider inner-page owl-carousel">
-      <div class="slider-item" style="background-image: url('{{asset('frontEnd')}}/img/equipe1.jpg');">
+      <div class="slider-item" style="background-image: url('{{asset($equipe->photoEquipe)}}');">
       </div>
 
     </section>
@@ -40,11 +41,11 @@
 
           <div class="col-md-4 border-right element-animate" data-animate-effect="fadeInLeft">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-home-tab" href="about.html" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> PRESENTATION</a>
-              <a class="nav-link" id="v-pills-messages-tab"  href="news.html" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span>02</span> PROJETS</a>
-              <a class="nav-link" id="v-pills-profile-tab"  href="doctors.html" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span>03</span> MEMBRES</a>
-              <a class="nav-link" id="v-pills-settings-tab"  href="equipe.html" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span>04</span> EQUIPES</a>
-              <a class="nav-link" id="v-pills-settings-tab"  href="contact.html" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span>05</span> CONTACT</a>
+              <a class="nav-link active" id="v-pills-home-tab" href="{{url('about')}}" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> PRESENTATION</a>
+              <a class="nav-link" id="v-pills-messages-tab"  href="{{url('news')}}" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span>02</span> PROJETS</a>
+              <a class="nav-link" id="v-pills-profile-tab"  href="{{url('membre')}}" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span>03</span> MEMBRES</a>
+              <a class="nav-link" id="v-pills-settings-tab"  href="{{url('equipe')}}" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span>04</span> EQUIPES</a>
+              <a class="nav-link" id="v-pills-settings-tab"  href="{{url('contact')}}" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span>05</span> CONTACT</a>
             </div>
           </div>
           <div class="col-md-1"></div>
@@ -61,19 +62,9 @@
          
          
              <?php
-                
-              
-                $membres = DB::table('users')
-                ->join('equipes', 'equipes.id', '=', 'users.equipe_id')
-                ->select('*', DB::raw('users.id as userId'))
-                ->where('users.equipe_id', '=',$equipe->id)
-
-                  ->get();
-
-                  foreach ($membres as $membre) {
-                     //echo $membre->userId. '<br>';
-
-               ?>  
+             
+              foreach ($membres as $membre) {
+                ?>  
           <div class="col-md-4 element-animate" >
               <a href="{{ url('info_membre/'.$membre->userId.'/id/'.$equipe->id)}}">                    
               <img src="{{asset($membre->photo)}}" alt="Image" style="height: 200px width:200px; Placeholder" title="{{$membre->name}} {{$membre->prenom}}" class="img-thumbnail img-responsive img-circle" id="photo" 
@@ -103,20 +94,14 @@
                     <th>Type</th>
                     <th>Annee</th>
                   </tr>
-                  <?php
-                
-              
-                $publications = DB::table('article_user')
-                ->join('users', 'users.id', '=', 'article_user.user_id')
-                ->join('articles', 'articles.id', '=', 'article_user.article_id')
-                ->where('users.equipe_id', '=',$equipe->id)
-                ->orderBy('annee', 'desc')
-                  ->get();
 
-                  foreach ($publications as $publication) {
+                  <?php
+               
+                 foreach ($publications as $publication) {
                       //echo $membre->name. '<br>';
 
                ?> 
+               
                   <tr>
                     <td>{{$publication->name}}</td>
                     <td>{{$publication->prenom}}</td>
@@ -125,6 +110,8 @@
                     <td>{{$publication->annee}}</td>
                 </tr>
                  <?php  } ?>
+                
+
                  </table>
                 <br><br>
                 <!-- les projet  fiha problem de groupby-->
@@ -141,11 +128,7 @@
                     </tr>
                     <?php
                     
-                  $projets = DB::table('projets')
-                   ->join('users', 'users.id', '=', 'projets.chef_id')
-                ->select('*', DB::raw('projets.id as projetId'))
-                ->where('users.equipe_id', '=',$equipe->id)
-                ->get();
+                 
 
                   foreach ($projets as $projet) {
                       ?>
@@ -160,12 +143,7 @@
                     <ul class="a">
                     
                     <?php
-                    $membreProjets = DB::table('projet_user')
-                ->join('users', 'users.id', '=', 'projet_user.user_id')
-                ->where('projet_user.projet_id', '=',$projet->projetId)
-                
-                ->get();
-
+                    
                   foreach ($membreProjets as $membreProjet) { ?>
 
                     

@@ -114,11 +114,7 @@ class EquipeController extends Controller
             }
     }
 
-    public function indexEquipe($id)
-       {
-        $rowEquipe = Equipe::find($id);
-        return view('frontView.services' , ['equipe' => $rowEquipe ]);
-       }
+   
     /*******
     public function afficherMembreEquipe($id)
        {

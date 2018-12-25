@@ -26,25 +26,27 @@
               <div class="row" id="cont">
                     <div  class="col-lg-8">
                       
-                      <h2 >RADIO COGNITIVE</h2>
+                      <h2 >{{$projet->intitule}}</h2>
                       <hr size="s" width="100%"  align = "LEFT " color = "#666666" noshade >
                       <br>
                       <table class="table" >
                          <tr>
-                            <th>SUJET: </td><td>Synthèse de profiles applicatifs</td>
+                            <th>SUJET: </td>
+                            <td>{{$projet->intitule}}</td>
                          </tr>
                          <tr>
                             <th>DESCRIPTION:  </td><td>
-                            Travaux  de  Joseph  Mitola (1991):  définir  une  classe  de  radio 
-                             reprogrammable et reconfigurable
+                            {{$projet->resume}}
                              </td>
                          </tr>
                          <tr>
                             <th>MEMBRE DE PROJET: </td>
-                            <td><li>Asma Amraoui </li>
-                                <li>Wassila Baghli</li>
-                                <li>Badr Benmamer</li>
+
+                            <td>
+                             @foreach( $membreProjets as  $membreProjet)
                                 
+                                <li>{{$membreProjet->name}} {{$membreProjet->prenom}}</li>
+                                @endforeach
                             </td>
                          </tr>
                          
@@ -66,7 +68,7 @@
                         
                     </div>
                     <div class="col-lg-4">
-                         <img  class="logo" src="{{asset('frontEnd')}}/img/imM/projet21.jpg" 
+                         <img  class="logo" src="{{asset($projet->photoProjet)}}" 
                          class="img-circle images_petit"
                           style="height: 400px;width: 300px;">
                     </div>

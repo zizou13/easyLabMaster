@@ -1,9 +1,13 @@
 @extends('layouts.master2')
 @Section('content')
     <!-- END header -->
-    
+    <style type="text/css">
+      .invalid-feedback{
+        display: block;
+      }
+    </style>
     <section class="home-slider inner-page owl-carousel">
-      <div class="slider-item" style="background-image: url('{{asset('frontEnd')}}/img/slider-2.jpg');">
+      <div class="slider-item" style="background-image:url('{{asset('frontEnd')}}/img/slider-2.jpg');">
         
         <div class="container">
           <div class="row slider-text align-items-center">
@@ -24,27 +28,47 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 mb-5 element-animate">
-            <form action="#" method="post">
+          @if (Session::has('fash_message'))
+           <div class="alert alert-success">{{Session::get('fash_message')}}</div>
+          @endif
+            <form action="{{url('K.?JcontactStore')}}" method="post">
+            {{csrf_field()}}
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label for="fname">Nom</label>
-                  <input type="text" class="form-control form-control-lg" id="fname">
+                  <input type="text" class="form-control form-control-lg" id="fname" name="family_name">
+                 
+                  @if($errors->has('family_name'))
+                   <small class="form-text invalid-feedback">
+                   {{$errors->first('family_name')}}</small>
+                  @endif
                 </div>
                 <div class="col-md-6 form-group">
                   <label for="lname">Prénom</label>
-                  <input type="text" class="form-control form-control-lg" id="lname">
+                  <input type="text" class="form-control form-control-lg" id="lname" name="first_name">
+                   @if($errors->has('first_name'))
+                   <small class="form-text invalid-feedback">{{$errors->first('first_name')}}</small>
+                  @endif
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 form-group">
                   <label for="email">Email</label>
-                  <input type="email" id="email" class="form-control form-control-lg">
+                  <input type="email" id="email" class="form-control form-control-lg" name="email">
+                   @if($errors->has('email'))
+                   <small class="form-text invalid-feedback">
+                   {{$errors->first('email')}}</small>
+                  @endif
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 form-group">
                   <label for="message">Ecrire un Message</label>
-                  <textarea name="message" id="message" class="form-control form-control-lg" cols="30" rows="8"></textarea>
+                  <textarea name="message" id="message" class="form-control form-control-lg" cols="30" rows="8" name="message"></textarea>
+                   @if($errors->has('message'))
+                   <small class="form-text invalid-feedback">
+                   {{$errors->first('message')}}</small>
+                  @endif
                 </div>
               </div>
               <div class="row">
@@ -59,7 +83,7 @@
           <div class="col-md-5 element-animate">
             
             <h5 class="text-uppercase mb-3">Adresse</h5>
-            <p class="mb-5">22, Rue Abi Ayad Abdelkrim Fg Pasteur  <br> B.P 119 <br> 13000, Tlemcen, Algérie</p>
+            <p class="mb-5">{{$adress->adress}}</p>
             
          
 

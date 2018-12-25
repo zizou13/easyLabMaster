@@ -131,64 +131,76 @@ Route::any('/search',function(){
 });
 
 
-Route::get('/news',function(){
-	return view('frontView.news');
-});
+
 
 Route::get('/equipe',function(){
-	return view('frontView.equipe');
+	$equipe = Equipe::all();
+	return view('frontView.equipe')->with(['equi' => $equipe]);
 });
 Route::get('/membre',function(){
-	return view('frontView.membre');
+	$membres= User::all();
+	$equipe = Equipe::all();
+	return view('frontView.membre')->with(['membres' => $membres,'equi' => $equipe]);;
 });
 Route::get('/projet',function(){
-	return view('frontView.projet');
+	$equipe = Equipe::all();
+	return view('frontView.projet')->with(['equi' => $equipe]);
 });
 Route::get('/info_membre',function(){
-	return view('frontView.info_membre');
+	$equipe = Equipe::all();
+	return view('frontView.info_membre')->with(['equi' => $equipe]);
 });
 
 Route::get('/about',function(){
-	return view('frontView.about');
+	$equipe = Equipe::all();
+	return view('frontView.about')->with(['equi' => $equipe]);
 });
-Route::get('/contact',function(){
-	return view('frontView.contact');
-});
+
+
+
 //recupérer la list des equipe
 Route::get('/index1',function(){
-	
+	$equipe = Equipe::all();
 	$listeEquie = Equipe::all(); 
-	//print_r($listeEquie);
-    // return view('frontView.index' , ['equipes' => $listeEquie]);
-    return view('frontView.index')->with(['equipes' => $listeEquie]);
+	
+    return view('frontView.index')->with(['equipes' => $listeEquie,'equi' => $equipe]);
 });
 //la liste des menu des equipe
-Route::get('/master2',function(){
+/*Route::get('/master2',function(){
 	
 	$listeEquie = Equipe::all(); 
 	
-    return view('frontView.index')->with(['equipes' => $listeEquie]);
+    return view('layouts.master2')->with(['equipes' => $listeEquie]);
+});*/
+Route::get('services/{id}','ServicesController@indexEquipe');
+Route::get('/news',function(){
+	$allProjets = Projet::all(); 
+	$equipe = Equipe::all();
+	return view('frontView.news')->with(['allProjets' => $allProjets,'equi' => $equipe]);
 });
-Route::get('services/{id}','EquipeController@indexEquipe');
 
 //recupérerr le nom de chef d'equipe en page services
 Route::get('services/{id}/details',function ($id){
         $equipe = Equipe::find($id);
+        $equi = Equipe::all();
         $membres = User::where('equipe_id', $id)->get();
 
         return view('frontView.services')->with([
+        	'equi' => $equi,
             'equipe' => $equipe,
             'membres' => $membres,
                                                 ]);                       
                                                });
 
-Route::get('info_membre/{id}/id/{idequipe}','InfoMembreController@showDetails');
+Route::get('info_membre/{id_user}/id/{id_equipe}','InfoMembreController@showDetails');
 
-/************************
-Route::get('membres',function(){
- $membres = User::all(); 
-       
+Route::get('projet/{id_projet}','InfoMembreController@detailsProjet');
 
-        return view('frontView.info_membre' , ['membres' => $membres]);
-                             });
-*/
+Route::post('/contactStore','ContactController2@store');	       
+Route::get('/contact',function(){
+	$equipe = Equipe::all();
+	$adress=Parametre::find(2);
+	return view('frontView.contact')->with(['equi' => $equipe,'adress'=>$adress]);;
+});
+
+

@@ -45,8 +45,9 @@
                 <a class="nav-link dropdown-toggle"  href="{{url('equipe')}}" id="dropdown04" >EQUIPES</a>
                 <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"-->
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                 @foreach($equipes as $equipe)
-                  <a class="dropdown-item" href="{{url('services/{id}')}}">{{$equipe->intitule}}</a>
+               
+                @foreach($equi as $equ)
+                  <a class="dropdown-item" href="{{ url('services/'.$equ->id)}}">{{$equ->intitule}}</a>
                   @endforeach
                   
                   

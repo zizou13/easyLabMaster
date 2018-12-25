@@ -1,5 +1,11 @@
 @extends('layouts.master2')
 @Section('content')
+<style type="text/css">
+  #imgProjet{
+    height:auto ;
+    width: 350px;
+  }
+</style>
     <section class="home-slider inner-page owl-carousel">
       <div class="slider-item" style="background-image: url('{{asset('frontEnd')}}/img/img2.jpg');">
         <div class="container">
@@ -19,86 +25,29 @@
  <section class="section bg-light">
       <div class="container">
         <div class="row">
-         
+          @foreach($allProjets as $allProjet)
+            <a href="{{ url('projet/'.$allProjet->id)}}">
           <div class="col-md-4 element-animate">
             <div class="media d-block media-custom text-left">
-              <img src="{{asset('frontEnd')}}/img/imM/projet21.jpg" alt="Image Placeholder" class="img-fluid" 
-              onclick="self.location.href='{{url('projet')}}'">
+              <img src="{{asset($allProjet->photoProjet)}}" alt="Image Placeholder" class="img-fluid"  id="imgProjet" 
+             >
               <div class="media-body">
-                <span class="meta-post">22 février 2012</span>
-                <h3 class="mt-0 text-black"><a href="#" class="text-black">Radio cognitive</a></h3>
+                <span class="meta-post">{{$allProjet->type}}</span>
+                <h3 class="mt-0 text-black">
+                <a href="{{$allProjet->lien}}" class="text-black">
+                {{$allProjet->intitule}}</a>
+                </h3>
                 
                 
               </div>
             </div>
           </div>
-
-          <div class="col-md-4 element-animate">
-            <div class="media d-block media-custom text-left">
-              <img src="{{asset('frontEnd')}}/img/imM/projet21.jpg" alt="Image Placeholder" class="img-fluid">
-              <div class="media-body">
-                <span class="meta-post">22 février 2012</span>
-                <h3 class="mt-0 text-black"><a href="#" class="text-black">Radio cognitive</a></h3>
-                
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4 element-animate">
-            <div class="media d-block media-custom text-left">
-              <img src="{{asset('frontEnd')}}/img/imM/projet21.jpg" alt="Image Placeholder" class="img-fluid">
-              <div class="media-body">
-                <span class="meta-post">22 février 2012</span>
-                <h3 class="mt-0 text-black"><a href="#" class="text-black">Radio cognitive</a></h3>
-                
-                
-              </div>
-            </div>
-          </div>
-
+           @endforeach
+          
 
         </div>
 
-        <div class="row mb-5">
-          
-          <div class="col-md-4 element-animate">
-            <div class="media d-block media-custom text-left">
-              <img src="{{asset('frontEnd')}}/img/imM/projet21.jpg" alt="Image Placeholder" class="img-fluid">
-              <div class="media-body">
-                <span class="meta-post">22 février 2012</span>
-                <h3 class="mt-0 text-black"><a href="#" class="text-black">Radio cognitive</a></h3>
-                
-                
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-4 element-animate">
-            <div class="media d-block media-custom text-left">
-              <img src="{{asset('frontEnd')}}/img/imM/projet21.jpg" alt="Image Placeholder" class="img-fluid">
-              <div class="media-body">
-                <span class="meta-post">22 février 2012</span>
-                <h3 class="mt-0 text-black"><a href="#" class="text-black">Radio cognitive</a></h3>
-                
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4 element-animate">
-            <div class="media d-block media-custom text-left">
-              <img src="{{asset('frontEnd')}}/img/imM/projet21.jpg" alt="Image Placeholder" class="img-fluid">
-              <div class="media-body">
-                <span class="meta-post">22 février 2012</span>
-                <h3 class="mt-0 text-black"><a href="#" class="text-black">Radio cognitive</a></h3>
-                
-                
-              </div>
-            </div>
-          </div>
-
-        </div>
+        
       </div>
     </section>
     @endsection

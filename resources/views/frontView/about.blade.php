@@ -25,7 +25,7 @@
 
           <div class="col-md-4 border-right element-animate" data-animate-effect="fadeInLeft">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> PRESENTATION</a>
+              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="{{url('about')}} role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> PRESENTATION</a>
                <a class="nav-link" id="v-pills-messages-tab"  href="{{url('news')}}" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span>02</span> PROJETS</a>
               <a class="nav-link" id="v-pills-settings-tab"  href="{{url('membre')}}" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span>03</span> MEMBRES</a>
            
@@ -87,138 +87,12 @@ Le laboratoire est grandement impliqué dans des enseignements liés à la reche
       </div>
     </section>
 
-   <!--section class="section bg-light">
-      <div class="container">
-        <div class="row justify-content-center mb-5 element-animate">
-          <div class="col-md-8 text-center mb-5">
-            <h2 class="text-uppercase heading border-bottom mb-4">Nos membres</h2>
-            <p class="mb-0 lead">Notre laboratoire comprend une bonne vingtaine d'enseignants-chercheurs (24)  et encadre une dizaine de doctorants,dont trois professeurs, 3 maîtres de conférences A  et 2  maîtres de conférences B.</p>
-          </div>
-        </div>
-        <div class="row element-animate">
-          <div class="major-caousel js-carousel-1 owl-carousel">
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_1.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Dr. Azedine CHIKH</h3>
-                  <p>Docteur en Informatique.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_2.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Dr. Mohammed MESSABIHI</h3>
-                  <p>Professeur (associé).</p>
-                  <p>
-                    <a href="https://www.facebook.com/mohamed.messabihi.90" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="https://twitter.com/mohamed055715" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="https://fr.linkedin.com/in/mohamed-messabihi-5b831817" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_3.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">MCB. Yassmine SELAADJI</h3>
-                  <p>Maitre de conference type B.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_4.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Dr. Houcine MATALLAH</h3>
-                  <p>Directeur de recherche.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_1.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Dr. Azedine CHIKH</h3>
-                    <p>Docteur en Informatique.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_2.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Dr. Mohammed MESSABIHI</h3>
-                  <p>Professeur (associé).</p>
-                  <p>
-                     <a href="https://www.facebook.com/mohamed.messabihi.90" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="https://twitter.com/mohamed055715" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="https://fr.linkedin.com/in/mohamed-messabihi-5b831817" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_3.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">MCB. Yassmine SELAADJI</h3>
-                  <p>Maitre de conference type B.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="img/doctor_4.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Dr. Houcine MATALLAH</h3>
-                  <p>Directeur de recherche.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-linkedin"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <! END slider -->
+   
         </div>
       </div>
     <!--/section-->
 
-
-    <section class="section bg-light">
+<section class="section bg-light">
       <div class="container">
         <div class="row justify-content-center mb-5 element-animate">
           <div class="col-md-8 text-center mb-5">
@@ -229,54 +103,31 @@ Pour redynamiser les secteurs de la recherche, l'Algérie a promulgué un ensemb
         </div>
         <div class="row element-animate">
           <div class="major-caousel js-carousel-1 owl-carousel">
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/equipe1.jpg" alt="Image Placeholder" class="img-fluid" style="height:200px;">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe1: </h3>
-                  <p>Equipe Systèmes communicants</p>
-                  <a href="services.html" class="btn-more">Plus</a>
-                    
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/equipe1.jpg" alt="Image Placeholder" class="img-fluid" style="height:200px;">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe2: </h3>
-                  <p>Ingénierie des Logiciels Sûrs</p>
-                  <a href="#" class="btn-more">Plus</a>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/equipe3.jpg" alt="Image Placeholder" class="img-fluid" style="height:200px;">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe3: </h3>
-                  <p>Systèmes d’information et de connaissance</p>
-                  <a href="#" class="btn-more">Plus</a>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/equipe4.png" alt="Image Placeholder" class="img-fluid" style="height:180px;">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe4: </h3>
-                  <p>Reseau,services et systèmes distribués.</p>
-                 <a href="#" class="btn-more">Plus</a>
-                </div>
-              </div>
-            </div>
-
+          <?php 
+            $i=0; 
+           ?>
            
-          <!-- END slider -->
+           @foreach($equipes as $equipe)
+              
+            <div>
+              <div class="media d-block media-custom text-center">
+                  <img src="{{asset($equipe->photoEquipe)}}" alt="      Image Placeholder" class="img-fluid" style="height: 200px ;">
+                  <div class="media-body">
+            <!--h3 class="mt-0 text-black">Equipe {{ ++$i }}: </h3-->
+            <h3 class="mt-0 text-black">Equipe {{ $equipe->id }}: </h3>
+                    <p>{{$equipe->intitule}}</p>
+                    <a href="{{ url('services/'.$equipe->id)}}" class="btn-more">Plus</a>
+                  </div>
+              </div>
+            </div>
+            <!-- @if($i == 3 || $i==9) <br>  
+               @endif-->
+           @endforeach
+
+          
         </div>
       </div>
     </section>
-    
 
    @endsection
 

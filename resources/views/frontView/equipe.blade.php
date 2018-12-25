@@ -35,50 +35,27 @@ Pour redynamiser les secteurs de la recherche, l'Algérie a promulgué un ensemb
         </div>
         <div class="row element-animate">
           <div class="major-caousel js-carousel-1 owl-carousel">
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/imgEquipe.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe1: </h3>
-                  <p>Equipe Systèmes communicants</p>
-                  <a href="services.html" class="btn-more">Plus</a>
-                    
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/equipe1.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe2: </h3>
-                  <p>Ingénierie des Logiciels Sûrs</p>
-                  <a href="#" class="btn-more">Plus</a>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/equipe3.jpg" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe3: </h3>
-                  <p>Systèmes d’information et de connaissance</p>
-                  <a href="#" class="btn-more">Plus</a>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <img src="{{asset('frontEnd')}}/img/equipe4.png" alt="Image Placeholder" class="img-fluid">
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Equipe4: </h3>
-                  <p>Reseau,services et systèmes distribués.</p>
-                 <a href="#" class="btn-more">Plus</a>
-                </div>
-              </div>
-            </div>
-
+          <?php 
+            $i=0; 
+           ?>
            
-          <!-- END slider -->
+           @foreach($equipes as $equipe)
+              
+            <div>
+              <div class="media d-block media-custom text-center">
+                  <img src="{{asset($equipe->photoEquipe)}}" alt="Image Placeholder" class="img-fluid" style="height: 200px ;">
+                  <div class="media-body">
+            <!--h3 class="mt-0 text-black">Equipe {{ ++$i }}: </h3-->
+            <h3 class="mt-0 text-black">Equipe {{ $equipe->id }}: </h3>
+                    <p>{{$equipe->intitule}}</p>
+                    <a href="{{ url('services/'.$equipe->id)}}" class="btn-more">Plus</a>
+                  </div>
+              </div>
+            </div>
+           
+           @endforeach
+
+         
         </div>
       </div>
     </section>
