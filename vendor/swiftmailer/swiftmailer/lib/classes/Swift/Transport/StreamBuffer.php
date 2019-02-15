@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -7,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 /**
  * A generic IoBuffer implementation supporting remote sockets and local processes.
  *
@@ -17,22 +15,16 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
 {
     /** A primary socket */
     private $stream;
-
     /** The input stream */
     private $in;
-
     /** The output stream */
     private $out;
-
     /** Buffer initialization parameters */
     private $params = array();
-
     /** The ReplacementFilterFactory */
     private $replacementFactory;
-
     /** Translations performed on data being streamed into the buffer */
     private $translations = array();
-
     /**
      * Create a new StreamBuffer using $replacementFactory for transformations.
      *
@@ -42,7 +34,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
     {
         $this->replacementFactory = $replacementFactory;
     }
-
     /**
      * Perform any initialization needed, using the given $params.
      *
@@ -63,7 +54,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
                 break;
         }
     }
-
     /**
      * Set an individual param on the buffer (e.g. switching to SSL).
      *
@@ -79,7 +69,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
                         stream_set_timeout($this->stream, $value);
                     }
                     break;
-
                 case 'blocking':
                     if ($this->stream) {
                         stream_set_blocking($this->stream, 1);
@@ -88,12 +77,10 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         }
         $this->params[$param] = $value;
     }
-
     public function startTLS()
     {
         return stream_socket_enable_crypto($this->stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
     }
-
     /**
      * Perform any shutdown logic needed.
      */
@@ -116,7 +103,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         $this->out = null;
         $this->in = null;
     }
-
     /**
      * Set an array of string replacements which should be made on data written
      * to the buffer.
@@ -133,7 +119,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
                 unset($this->translations[$search]);
             }
         }
-
         foreach ($replacements as $search => $replace) {
             if (!isset($this->translations[$search])) {
                 $this->addFilter(
@@ -143,7 +128,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
             }
         }
     }
-
     /**
      * Get a line of output (including any CRLF).
      *
@@ -170,11 +154,9 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
                     );
                 }
             }
-
             return $line;
         }
     }
-
     /**
      * Reads $length bytes from the stream into a string and moves the pointer
      * through the stream by $length.
@@ -202,16 +184,13 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
                     );
                 }
             }
-
             return $ret;
         }
     }
-
     /** Not implemented */
     public function setReadPointer($byteOffset)
     {
     }
-
     /** Flush the stream contents */
     protected function flush()
     {
@@ -219,29 +198,24 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
             fflush($this->in);
         }
     }
-
     /** Write this bytes to the stream */
     protected function doCommit($bytes)
     {
         if (isset($this->in)) {
             $bytesToWrite = strlen($bytes);
             $totalBytesWritten = 0;
-
             while ($totalBytesWritten < $bytesToWrite) {
                 $bytesWritten = fwrite($this->in, substr($bytes, $totalBytesWritten));
                 if (false === $bytesWritten || 0 === $bytesWritten) {
                     break;
                 }
-
                 $totalBytesWritten += $bytesWritten;
             }
-
             if ($totalBytesWritten > 0) {
                 return ++$this->sequence;
             }
         }
     }
-
     /**
      * Establishes a connection to a remote server.
      */
@@ -259,7 +233,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         if (!empty($this->params['sourceIp'])) {
             $options['socket']['bindto'] = $this->params['sourceIp'].':0';
         }
-
         if (isset($this->params['stream_context_options'])) {
             $options = array_merge($options, $this->params['stream_context_options']);
         }
@@ -280,7 +253,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         $this->in = &$this->stream;
         $this->out = &$this->stream;
     }
-
     /**
      * Opens a process for input/output.
      */
@@ -303,14 +275,12 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
         $this->in = &$pipes[0];
         $this->out = &$pipes[1];
     }
-
     private function getReadConnectionDescription()
     {
         switch ($this->params['type']) {
             case self::TYPE_PROCESS:
                 return 'Process '.$this->params['command'];
                 break;
-
             case self::TYPE_SOCKET:
             default:
                 $host = $this->params['host'];
@@ -318,7 +288,6 @@ class Swift_Transport_StreamBuffer extends Swift_ByteStream_AbstractFilterableIn
                     $host = $this->params['protocol'].'://'.$host;
                 }
                 $host .= ':'.$this->params['port'];
-
                 return $host;
                 break;
         }

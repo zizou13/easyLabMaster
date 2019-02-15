@@ -114,6 +114,8 @@
 
                  </table>
                 <br><br>
+
+                
                 <!-- les projet  fiha problem de groupby-->
                  <h3 class="text-primary">Les projets de l'équipe:</h3>
                 <p class="lead"></p> 
@@ -126,6 +128,7 @@
                       <th>Membres</th>
                       
                     </tr>
+                    @if($projets)
                     <?php
                     
                  
@@ -143,7 +146,12 @@
                     <ul class="a">
                     
                     <?php
-                    
+                     
+                      
+                 $membreProjets = DB::table('projet_user')
+                ->join('users', 'users.id', '=', 'projet_user.user_id')
+                ->where('projet_user.projet_id', '=',$projet->projetId)
+               ->get();                              
                   foreach ($membreProjets as $membreProjet) { ?>
 
                     
@@ -158,7 +166,7 @@
                      <?php  } ?>
                   </table>
 
-
+                   @endif
 
 
 
@@ -194,3 +202,20 @@
 
 
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       
+                  
+                      

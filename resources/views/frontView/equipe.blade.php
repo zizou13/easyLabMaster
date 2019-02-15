@@ -39,7 +39,7 @@ Pour redynamiser les secteurs de la recherche, l'Algérie a promulgué un ensemb
             $i=0; 
            ?>
            
-           @foreach($equipes as $equipe)
+           @foreach($equi as $equipe)
               
             <div>
               <div class="media d-block media-custom text-center">

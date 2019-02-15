@@ -37,7 +37,7 @@
             <h2>Presentation</h2>
             <p> L’objectif des Laboratoire de recherche (LR) est de rassembler les chercheurs activant dans les mêmes axes de recherches que ceux développés au LR, afin d’échanger des idées et de créer des liens de collaborations inter-laboratoires et de réunir les compétences nationales autour de ces divers thèmes d’actualités.D'autre part, le LR organise périodiquement l'ICSIP qui est une conférence à caractère international.</p>
           </div>
-          <a href="about.html" class="btn-more">Read More</a>
+          <a href="{{url('about')}}" class="btn-more">Read More</a>
         </div>
         <div class="col-md-4 p-0 two-col element-animate">
           <div class="col-inner p-xl-5 p-lg-5 p-md-4 p-sm-4 p-4">
@@ -45,7 +45,7 @@
             <h2>Membres</h2>
             <p>Des chercheurs de haut niveau qui recherchent, expérimentent et font progresser leurs discipline : mathématiques, physique, chimie, biologie, médecine, mais aussi psychologie, histoire, sociologie, ethnologie… </p>
           </div>
-          <a href="news.html" class="btn-more">Read More</a>
+          <a href="{{url('membre')}}" class="btn-more">Read More</a>
         </div>
         <div class="col-md-4 p-0 three-col element-animate">
           <div class="col-inner p-xl-5 p-lg-5 p-md-4 p-sm-4 p-4">
@@ -54,7 +54,7 @@
             <p>Un projet de recherche est un procédé scientifique visant à obtenir des informations et à formuler des hypothèses sur un phénomène social ou scientifique
             </p>
           </div>
-          <a href="projet.html" class="btn-more">Read More</a>
+          <a href="{{url('news')}}" class="btn-more">Read More</a>
         </div>
       </div>
     </section>

@@ -57,9 +57,16 @@
             <span>Projets</span>
           </a>
         </li>
+        @if(Auth::user()->role->nom == 'admin' )
         
+        <li >
+          <a href="{{url('materiels')}}">
+            <i class="fa fa-desktop"></i> 
+            <span>Matériels</span>
+          </a>
+        </li>
       
-          @if(Auth::user()->role->nom == 'admin' )
+          
 
           <li>
           <a href="{{url('parametre')}}">

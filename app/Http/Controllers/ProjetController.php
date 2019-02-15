@@ -71,12 +71,23 @@ class ProjetController extends Controller
             $projet->detail = '/uploads/projet/'.$file_name;
         }
 
+        if($request->hasFile('img')){
+            $file = $request->file('img');
+            $file_name = time().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('/uploads/projet'),$file_name);
+
+        }
+        else{
+            $file_name="projet3.jpg";
+        }
+
 	 	$projet->intitule = $request->input('intitule');
 	 	$projet->resume = $request->input('resume');
 	 	$projet->type = $request->input('type');
 	 	$projet->partenaires = $request->input('partenaires');
 	 	$projet->lien = $request->input('lien');
         $projet->chef_id = $request->input('chef_id');
+        $projet->photoProjet = 'uploads/projet/'.$file_name;
 	 	
 
 

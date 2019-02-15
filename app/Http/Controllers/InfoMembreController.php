@@ -16,24 +16,20 @@ class InfoMembreController extends Controller
    
     public function showDetails($id_user,$id_equipe)
     {
-                  /**/
-                  
-                   $mumber= User::find($id_user);
-                   $equipe = Equipe::find($id_equipe);
-                    $equi = Equipe::all();
-                  
-                   //  $these =These::where('user_id',18)->get();
-              /* $these = These::select('*')
-                           ->where('user_id', '=', $id_user)
-                           ->get();
-                   $these = DB::table('theses')
-                ->where('user_id', '=',$id_user)
-                ->get();*/
-                           
-               
-
-         // $these = DB::select( DB::These("SELECT * FROM theses WHERE user_id = '$id_user'") );
                  
+                  
+                    $mumber= User::find($id_user);
+                    $equipe = Equipe::find($id_equipe);
+                    $equi = Equipe::all();
+                    /*$projets = DB::table('projets')
+                  ->where('projets.chef_id', '=',$id_user)
+                  ->get();*/
+              $projets = DB::table('projets')
+                ->join('projet_user', 'projet_user.projet_id', '=', 'projets.id')
+                ->select('*', DB::raw('projets.id as ghie'))
+                  ->where('projet_user.user_id', '=',$id_user)
+                  ->get();
+
                   $publications = DB::table('article_user')
                 ->join('users', 'users.id', '=', 'article_user.user_id')
 
@@ -43,21 +39,15 @@ class InfoMembreController extends Controller
                 ->where('users.id', '=',$id_user)
                 ->orderBy('annee', 'desc')
                 ->get();
-                         //if ($publications!= null){
-                         foreach ($publications as $publication) {
-                     $membrePublications = DB::table('article_user')
-                ->join('users', 'users.id', '=', 'article_user.user_id')
-                ->where('article_user.article_id', '=',$publication->id_pub)
-                //->where('users.id', '=',$id_membre)
-                ->get();
-                                                                  }
-                        // }
 
-                  $projets = DB::table('projets')
-                  
-                ->where('projets.chef_id', '=',$id_user)
-                ->get();
-              
+
+
+
+                
+                        
+                        
+                          
+               
                  return view('frontView.info_membre')->with([
                   'mumber' => $mumber,
                   'equipe' => $equipe,
@@ -65,10 +55,7 @@ class InfoMembreController extends Controller
                   'id_membre'=>$id_user,
                   'id_equipe'=>$id_equipe,
                   'publications'=>$publications,
-                  'membrePublications'=>$membrePublications,
-                  'projets'=>$projets
-                  //'these'=>$these
-                  ]);;
+                  'projets'=>$projets]);
 
     }
 

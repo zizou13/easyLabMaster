@@ -66,7 +66,12 @@
         </li>
 
         @if(Auth::user()->role->nom == 'admin' )
-
+           <li >
+          <a href="{{url('materiels')}}">
+            <i class="fa fa-desktop"></i> 
+            <span>Matériels</span>
+          </a>
+        </li>
           <li>
           <a href="{{url('parametre')}}">
             <i class="fa fa-gears"></i> 
@@ -219,6 +224,17 @@
                         </div>
                       </div>
                   </div>
+
+
+                        
+        <div class="form-group">
+                 <label class="col-md-3 control-label">Photo du projet</label>  
+            <div class="col-md-9 inputGroupContainer">
+                <input name="img" type="file" >
+            </div>
+        </div>
+                          
+
 
               </fieldset>
 

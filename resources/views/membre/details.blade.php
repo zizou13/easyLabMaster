@@ -66,7 +66,12 @@
        
         
           @if(Auth::user()->role->nom == 'admin' )
-
+           <li >
+          <a href="{{url('materiels')}}">
+            <i class="fa fa-desktop"></i> 
+            <span>Matériels</span>
+          </a>
+        </li>
           <li>
           <a href="{{url('parametre')}}">
             <i class="fa fa-gears"></i> 
@@ -108,6 +113,9 @@
               <li><a href="#activity1" data-toggle="tab">Modifier</a></li>
               @endif
               <li><a href="#timeline" data-toggle="tab">Articles</a></li>
+              @if(Auth::id() == $membre->id)
+              <li><a href="#actualite" data-toggle="tab">Actualite</a></li>
+              @endif
             </ul>
 
             <div class="tab-content">
@@ -477,6 +485,77 @@
                   </div>
             </form>
           </div>
+
+
+
+<div class="tab-pane" id="actualite">
+    <form class="well form-horizontal" action="{{url('actualite/'.$membre->id)}}" method="post"  id="contact_form" enctype="multipart/form-data">
+              {{ csrf_field() }}
+
+              <fieldset>
+
+                <!-- Form Name -->
+                <legend><center><h2><b>Nouveau actualité</b></h2></center></legend><br>
+
+                  <div class="form-group ">
+                        <label class="col-xs-3 control-label">Intitulé (*)</label>  
+                        <div class="col-xs-9 inputGroupContainer @if($errors->get('intitule')) has-error @endif">
+                          <div style="width: 70%">
+                            <input  name="intitule" class="form-control" placeholder="Intitulé" type="text" value="{{old('intitule')}}">
+                            <span class="help-block">
+                                @if($errors->get('intitule'))
+                                  @foreach($errors->get('intitule') as $message)
+                                    <li> {{ $message }} </li>
+                                  @endforeach
+                                @endif
+                            </span>
+                          </div>
+                        </div>
+                  </div>  
+
+                  <div class="form-group">
+                      <label class="col-md-3 control-label">Contenu (*)</label>
+                      <div class="col-md-9 inputGroupContainer @if($errors->get('resume')) has-error @endif">
+                        <div style="width: 70%">
+                          <textarea class="form-control" name="resume" rows="3" placeholder="Résumé ...">{{old('resume')}}</textarea>
+                          <span class="help-block">
+                                @if($errors->get('resume'))
+                                  @foreach($errors->get('resume') as $message)
+                                    <li> {{ $message }} </li>
+                                  @endforeach
+                                @endif
+                            </span>
+                        </div>
+                      </div>
+                  </div>
+
+                  
+                        
+        <div class="form-group">
+                 <label class="col-md-3 control-label">Photo </label>  
+            <div class="col-md-9 inputGroupContainer">
+                <input name="img" type="file" >
+            </div>
+        </div>
+                          
+
+
+              </fieldset>
+
+              <div class="row" style="padding-top: 30px; margin-left: 35%;">
+              <a href="{{url('projets')}}" class=" btn btn-lg btn-default"><i class="fa  fa-mail-reply"></i> &nbsp;Annuler</a>
+               <button type="submit" class=" btn btn-lg btn-primary"><i class="fa fa-check"></i> Valider</button> 
+                  </div>
+            </form>
+</div>
+
+
+
+
+
+
+
+
 
               <!-- /.tab-pane -->
             </div>

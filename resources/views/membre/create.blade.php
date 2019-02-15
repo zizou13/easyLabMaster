@@ -68,7 +68,12 @@
        
         
           @if(Auth::user()->role->nom == 'admin' )
-
+            <li >
+          <a href="{{url('materiels')}}">
+            <i class="fa fa-desktop"></i> 
+            <span>Matériels</span>
+          </a>
+        </li>
           <li>
           <a href="{{url('parametre')}}">
             <i class="fa fa-gears"></i> 
@@ -230,7 +235,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input name="date_naissance"type="text" class="form-control pull-right" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask id="datepicker" value="{{old('date_naissance')}}">
+                              <input name="date_naissance" type="text" class="form-control pull-right" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask id="datepicker" value="{{old('date_naissance')}}">
                             </div>
                       </div>
                       </div>

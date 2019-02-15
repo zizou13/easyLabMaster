@@ -34,20 +34,29 @@ class ServicesController extends Controller
                 ->select('*', DB::raw('projets.id as projetId'))
                 ->where('users.equipe_id', '=',$id)
                 ->get();
-
+                     /* if($projets!=null){
                         foreach ($projets as $projet) {
-        $membreProjets = DB::table('projet_user')
+                      
+                 $membreProjets = DB::table('projet_user')
                 ->join('users', 'users.id', '=', 'projet_user.user_id')
                 ->where('projet_user.projet_id', '=',$projet->projetId)
-               ->get();
-                                                      }
-        //return view('frontView.services' , ['equipe' => $rowEquipe ],['membres' => $membres]);
+               ->get();                              }
+
+               return view('frontView.services')->with([
+                    'equipe' => $rowEquipe,
+                    'membres' => $membres,
+                    'publications'=>$publications,
+                    'equi' => $equi,
+                    'projets'=>$projets,
+                    'membreProjets'=>$membreProjets]);
+                                                      }*/
+        
                   return view('frontView.services')->with([
                     'equipe' => $rowEquipe,
                     'membres' => $membres,
                     'publications'=>$publications,
                     'equi' => $equi,
-                    'projets'=>$projets,'membreProjets'=>$membreProjets]);
+                    'projets'=>$projets]);
        }
 
  

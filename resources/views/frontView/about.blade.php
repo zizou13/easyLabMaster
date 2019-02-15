@@ -1,6 +1,7 @@
 
     @extends('layouts.master2')
 @Section('content')
+<!--code js-->
     <section class="home-slider inner-page owl-carousel">
       <div class="slider-item" style="background-image: url('{{asset('frontEnd')}}/img/img1.jpg');">
         
@@ -43,8 +44,8 @@
                
 
                 <h2 class="text-primary">Présentation</h2>
-                <p class="lead">La recherche scientifique constitue un enjeu déterminant au 21éme siècle  eu égard aux défis technologiques et à la mondialisation qui sera le champ de confrontation entre les nations industrialisées et modernes, confrontation qui risque de reléguer au second plan les sociétés qui ne se donnent pas les moyens de se développer.
-                Le laboratoire de recherche pour la réalisation d'objectifs de recherche pour le développement, pour la réalisation d'études et pour le travail d'acquisition et pour l'acquisition de connaissances, pour l'acquisition de connaissances, pour la formation et pour la recherche diffusion de l'information scientifique et des résultats obtenus. Dirigé par un directeur élu, il doit être constitué d'au moins quatre équipes de recherche, chacun dirigé par un chercheur qualifié et moins d'au moins trois chercheurs.
+                <p class="lead">
+                {{$labo->text}}
               </p>
                 
               </div>
@@ -60,26 +61,12 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 element-animate">
-            <img src="{{asset('frontEnd')}}/img/img_1.jpg" class="img-fluid mb-4" alt="Image placeholder" style="width: 1000px;height: 1500px">
+            <img src="{{asset($labo->photoLabo)}}" class="img-fluid mb-4" alt="Image placeholder" style="width: 1000px;height: 800px">
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-5 element-animate">
             <h2 class="text-uppercase mb-4">Presentation de notre laboratoire</h2>
-            <p class="lead">
-Le LRI, Laboratoire Mixte de Recherche de l'Université de Tlemcen, est un laboratoire de recherche en informatique se consacrant à la modélisation et la résolution de problèmes fondamentaux motivés par les applications, ainsi qu'à la mise en oeuvre et la validation des solutions au travers de partenariats académiques comme le département de Mathématique et de Physique Electronique.
-Les axes fédérateurs sont :
-Sûreté, sécurité, fiabilité ;
-Science des données, intelligence et optimisation ; 
-Systèmes communicants.
-Le LRI répond à ces challenges à différents niveaux thématiques au sein des 3 départements.
- 
-Bien que récemment agréé et créé, le LRI est doté déja d'une composante humaine assez riche et multidisciplinaire. Le LRI est composé de 33 chercheurs, 1 ingénieur et 1 secrétaire. Il accueille plus d'une dizaine de doctorants, près d'une trentaine de MA, 4MC et un professeur. La recherche est organisée en quatre équipes regroupées en plusieures thématiques : Systèmes Intelligents, Données et Apprentissage Artificiel, Réseaux et Systèmes,  Modélisation et Optimisation, Web sémantique. 
- 
-La production scientifique est en moyenne d'une vintaine de publications par an.
- 
-La coopération internationale est une nécessité pour notre laboratoire Il entretient des relations suivies avec des universités françaises et tunisiennes. En complément de la recherche académique, le LRI a une récente coopération avec le monde industriel et des partenaires socio économiques.
- 
-Le laboratoire est grandement impliqué dans des enseignements liés à la recherche en master (Master Réseaux, Master Génie Logiciel, Master SIC et MID). L'école doctorale "Réseaux et Services" du département Informatique de l'Université de Tlemcen accueille les doctorants du laboratoire.
+            <p class="lead">{{$labo->text}}
 </p>
            
           </div>
@@ -107,7 +94,7 @@ Pour redynamiser les secteurs de la recherche, l'Algérie a promulgué un ensemb
             $i=0; 
            ?>
            
-           @foreach($equipes as $equipe)
+           @foreach($equi as $equipe)
               
             <div>
               <div class="media d-block media-custom text-center">
@@ -128,7 +115,7 @@ Pour redynamiser les secteurs de la recherche, l'Algérie a promulgué un ensemb
         </div>
       </div>
     </section>
-
+<!--div-->
    @endsection
 
 

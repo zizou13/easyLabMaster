@@ -67,7 +67,12 @@
        
         
           @if(Auth::user()->role->nom == 'admin' )
-
+          <li >
+          <a href="{{url('materiels')}}">
+            <i class="fa fa-desktop"></i> 
+            <span>Matériels</span>
+          </a>
+        </li>
           <li>
           <a href="{{url('parametre')}}">
             <i class="fa fa-gears"></i> 
@@ -96,6 +101,9 @@
                 <a href="{{url('membres/create')}}" type="button" class="btn btn-block btn-success btn-lg"><i class="fa fa-user-plus"></i> Nouveau membre</a>
               </div>
                @endif
+               <!--div class="pull-right">
+                <a href="{{url('actualiteCreate')}}" type="button" class="btn btn-block btn-primary btn-lg"><i class="fa fa-plus"> Ajouter actualité</i></a>
+              </div-->
 <!-- 
                <div>
                  <button href="{{('excel')}}">Excel</button>
@@ -142,7 +150,7 @@
                           <div class="modal-dialog">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                    <!--   <h5 class="modal-title" id="supprimer{{ $membre->id }}ModalLabel">Supprimer</h5> -->
+                                    
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                       </button>

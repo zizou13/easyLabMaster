@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Mail;
 
+
 class ContactController2 extends Controller
 {
     function store(Request $request)
@@ -22,7 +23,7 @@ class ContactController2 extends Controller
    
     	Mail::send('frontView.dynamic_email_template',
     		[
-    		'msg'    =>$request->message
+    		'msg'=>$request->message
     		],function($mail) use($request)
     		          {
     		         $mail->from($request->email,$request->family_name);

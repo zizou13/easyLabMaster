@@ -23,12 +23,13 @@
     @yield('lien')
   </head>
   <body>
-    
+    <!--src="{{asset('uploads/photo/1525782794.png')}}"-->
    <header role="banner">
       
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-           <img  class="logo" src="{{asset('frontEnd')}}/img/Logo.png" style="width: 170px;height: 70px; text-align: right;">
+           <img  class="logo" src="{{asset('frontEnd')}}/img/Logo.png"
+            style="width: 170px;height: 70px; text-align: right;">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -61,7 +62,23 @@
               <a class="nav-link" href="{{url('membre')}}">MEMBRES</a>
               </li>
               <li class="nav-item">
+              <a class="nav-link" href="{{url('actuality')}}">ACTUALITES</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="{{url('contact')}}">CONTACT</a>
+              </li>
+              <li>
+              <form action="/recherche" method="POST" class="sidebar-form" role="search" style="margin-top: 20px;">
+      {{ csrf_field() }}
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+
               </li>
             </ul>
           </div>
@@ -70,7 +87,7 @@
     </header>
 
 @yield('content')
-     <section class="cover_1" style="background-image: url('{{asset('frontEnd')}}/img/bg_1.jpg');">
+     <section class="cover_1" style="background-image: url('{{asset('frontEnd')}}/img/ctc.jpg');">
       <div class="container">
         <div class="row text-center justify-content-center">
           <div class="col-md-10">

@@ -1,51 +1,93 @@
 <?php
 namespace App\Http\Controllers;
+ 
 use Mail;
-use Illuminate\Http\Request;
-use Illuminate\Mail\Mailer;
-
-
-
+use Swift_Transport;
+use Swift_Message;
+use Swift_Mailer;
+ 
+use App\Http\Controllers\Controller;
+ 
 class ContactController extends Controller
 {
-    function store(Request $request)
+ 
+    public function __construct()
     {
-    	//si je tapp sur envoyer sans renseigner les champs des msg en rouge s'affiche
-    	$this->validate($request,[
-           'family_name'=>'required',
-           'first_name'=>'required',
-           'email'=> 'required|email',
-           'message'=>'required'
-    		]);
-
-
-          
-    /*	$data =array(
-    		'first_name' =>$request->first_name,
-    		'family_name'=>$request->family_name,
-    		'email'=>$request->email,
-            'message'    =>$request->message
-    		);
-    	 Mail::send('frontView.dynamic_email_template',$data,function($msg) use($data){
-                 $msg->to($data['email'],'laravel tuto');
-                 $msg->from('bouchekiflatifa13@gmail.com');
-                // $msg->message($data['message'],'Laravel msg');
-
-           });
-    	 session::flash('fash_message','Thank you for your message');
-    	return Redirect()->back();
-*/
-    	Mail::sent('frontView.dynamic_email_template',
-    		[
-    		'message'    =>$request->message
-    		],function($mail) use($request)
-    		          {
-    		         $mail->from($request->email,$request->family_name);
-    		         $mail->to('bouchekiflatifa13@gmail.com')->subject('Content Message');
-    		         
-    		          });
-    	return Redirect()->back()->with('fash_message','Thank you for your message');
-    	
+ 
     }
-    
+ 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+ 
+    }
+ 
+    /**
+     * Update posisi menu
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function sendemail()
+    {
+ 
+            $data_toview = array();
+            $data_toview['bodymessage'] = "Hello send test email";
+ 
+            $email_sender   = 'bouchekiflatifa13@gmail.com';
+            $email_pass     = 'blablablabla';
+            $email_to       = 'youremail@gmail.com';
+ 
+            // Backup your default mailer
+            $backup = \Mail::getSwiftMailer();
+ 
+            try{
+ 
+                        //https://accounts.google.com/DisplayUnlockCaptcha
+                        // Setup your gmail mailer
+                        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls');
+                        $transport->setUsername($email_sender);
+                        $transport->setPassword($email_pass);
+ 
+                        // Any other mailer configuration stuff needed...
+                        $gmail = new Swift_Mailer($transport);
+ 
+                        // Set the mailer as gmail
+                        \Mail::setSwiftMailer($gmail);
+ 
+                        $data['emailto'] = $email_sender;
+                        $data['sender'] = $email_to;
+                        //Sender dan Reply harus sama
+ 
+                        Mail::send('frontView.dynamic_email_template', $data_toview, function($message) use ($data)
+                        {
+ 
+                            $message->from($data['sender'], 'Laravel Mailer');
+                            $message->to($data['emailto'])
+                            ->replyTo($data['sender'], 'Laravel Mailer')
+                            ->subject('Test Email');
+ 
+                            echo 'The mail has been sent successfully';
+ 
+                        });
+ 
+            }catch(\Swift_TransportException $e){
+                $response = $e->getMessage() ;
+                echo $response;
+            }
+ 
+ 
+            // Restore your original mailer
+            Mail::setSwiftMailer($backup);
+ 
+ 
+    }
+ 
+ 
+ 
+ 
 }

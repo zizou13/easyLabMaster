@@ -4,6 +4,12 @@ use App\These;
 use App\Projet;
 use App\Article;
 use App\Equipe;
+use App\Materiel;
+use App\MaterielUser;
+use App\MaterielEquipe;
+use App\Actualite;
+use Illuminate\Http\Request;
+use Illuminate\support\Facades\DB;
 use App\Parametre;
 use Illuminate\Support\Facades\Input;
 /*
@@ -51,7 +57,36 @@ Route::get('trombinoscope','UserController@trombi');
 Route::get('membres/{id}/edit','UserController@edit');
 Route::put('membres/{id}','UserController@update');
 Route::delete('membres/{id}','UserController@destroy');
+//
 
+
+Route::post('actualite/{id}',function ($id,Request $request) {
+   
+        //$labo = Parametre::find('1');
+        $actualite=new Actualite();
+            
+            if($request->hasFile('img')){
+            $file = $request->file('img');
+            $file_name = time().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('/uploads/photo'),$file_name);
+
+        }
+        else{
+            $file_name="act11.jpg";
+        }
+
+        $actualite->user_id=$id;
+        $actualite->titre=$request->input('intitule');
+        $actualite->contenu=$request->input('resume');
+        $actualite->photoA='uploads/photo/'.$file_name;
+        $actualite->save();
+         return redirect('membres/'.$id.'/details');
+
+
+
+
+});
+//
 
 Route::get('test','EquipeController@index');
 
@@ -69,6 +104,101 @@ Route::get('projets/{id}/details','ProjetController@details');
 Route::get('projets/{id}/edit','ProjetController@edit');
 Route::put('projets/{id}','ProjetController@update');
 Route::delete('projets/{id}','ProjetController@destroy');
+
+
+
+/***LLLLL***/
+
+Route::get('materiels','MaterielController@index');
+Route::get('materiels/create','MaterielController@create');
+Route::post('materiels','MaterielController@store');
+
+Route::get('materiels/{id}/details','MaterielController@details');
+Route::get('materiels/{id}/edit','MaterielController@edit');
+Route::put('materiels/{id}','MaterielController@update');
+Route::delete('materiels/{id}','MaterielController@destroy');
+Route::post('materielAffectEquipe/{id}',function ($id,Request $request) {
+
+        
+		$labo = Parametre::find('1');
+		$materiel_equipe = new MaterielEquipe();
+       
+          $materiel= Materiel::find($id);
+         $materiel->autorisation_pret ="2";
+         $materiel->save();
+  
+        $materiel_equipe->materiel_id = $id;
+ $materiel_equipe->equipe_id =$request->input('equipeI');
+ $materiel_equipe->date_emprunter = $request->input('dateE');
+
+ $materiel_equipe->save();
+
+          return redirect('materiels/'.$id.'/details');
+
+
+           
+   
+
+
+});
+
+Route::post('materielAffectUser/{id}',function ($id,Request $request) {
+
+       
+		$materiel_user = new MaterielUser();
+        $date_emprunt= $request->input('dateEp');
+         $user=$request->input('UserI');
+         
+           $materiel= Materiel::find($id);
+         $materiel->autorisation_pret ="1";
+         $materiel->save();
+        
+            $materiel_user->materiel_id = $id;
+            $materiel_user->user_id = $user;
+            $materiel_user->date_emprunter = $date_emprunt;
+           
+           
+            $materiel_user->save();
+           
+
+
+
+           return redirect('materiels/'.$id.'/details');
+
+
+});
+Route::post('materielRetour/{id}',function ($id,Request $request) {
+         
+         $materiel=Materiel::find($id);
+        
+   if($materiel->autorisation_pret=="1")
+   {
+   	   
+	 
+    $dateR = $request->input('dateR');
+     //$dateR="898";
+      DB::update("UPDATE materiel_users SET date_rendu=$dateR where materiel_id=$id and date_rendu IS Null",[$dateR]);
+      
+        
+		 
+   }
+    if($materiel->autorisation_pret=="2")
+   {
+	   $dateR = $request->input('dateR');
+     //$dateR="898";
+      DB::update("UPDATE materiel_equipes SET date_rendu=$dateR where materiel_id=$id and date_rendu IS Null",[$dateR]);
+   }
+        
+         
+
+         $materiel->autorisation_pret ="0";
+         $materiel->save();
+         return redirect('materiels/'.$id.'/details');
+
+
+});
+
+/***/
 
 Auth::routes();
 
@@ -116,11 +246,13 @@ Route::any('/search',function(){
     $articles = Article::where('titre','LIKE','%'.$q.'%')->orWhere('resume','LIKE','%'.$q.'%')->orWhere('type','LIKE','%'.$q.'%')->get();
     $projets = Projet::where('intitule','LIKE','%'.$q.'%')->orWhere('resume','LIKE','%'.$q.'%')->orWhere('type','LIKE','%'.$q.'%')->get();
     $equipes = Equipe::where('intitule','LIKE','%'.$q.'%')->orWhere('resume','LIKE','%'.$q.'%')->orWhere('achronymes','LIKE','%'.$q.'%')->get();
+    $materiels=Materiel::where('nom','LIKE','%'.$q.'%')->orWhere('description','LIKE','%'.$q.'%')->get();
 
         // return view('search')->withDetails($user)->withQuery ( $q );
         return view('search')->with([
             'membres' => $membres,
             'theses' => $theses,
+            'materiels'=>$materiels,
             'articles' => $articles,
             'projets' => $projets,
             'equipes' => $equipes,
@@ -130,7 +262,48 @@ Route::any('/search',function(){
 
 });
 
+/***/
 
+Route::any('/recherche',function(){
+    
+    $labo = Parametre::find('1'); 
+    $q = Input::get ( 'q' );
+    $membres = User::where('name','LIKE','%'.$q.'%')->orWhere('prenom','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get();
+    $theses = These::where('titre','LIKE','%'.$q.'%')->orWhere('sujet','LIKE','%'.$q.'%')->get();
+    
+    $projets = Projet::where('intitule','LIKE','%'.$q.'%')->orWhere('resume','LIKE','%'.$q.'%')->orWhere('type','LIKE','%'.$q.'%')->get();
+    $equipes = Equipe::where('intitule','LIKE','%'.$q.'%')->orWhere('resume','LIKE','%'.$q.'%')->orWhere('achronymes','LIKE','%'.$q.'%')->get();
+
+        // return view('search')->withDetails($user)->withQuery ( $q );
+        return view('frontView.recherche')->with([
+            'membres' => $membres,
+            'theses' => $theses,
+            
+            'projets' => $projets,
+            'equipes' => $equipes,
+            'labo'=>$labo,
+            
+        ]);;
+
+});
+
+Route::any('/rechercheActualite',function(){
+    
+    $labo = Parametre::find('1'); 
+    $q = Input::get ( 'q' );
+   
+    $actualites = Actualite::where('titre','LIKE','%'.$q.'%')->orWhere('contenu','LIKE','%'.$q.'%')->get();
+
+        // return view('search')->withDetails($user)->withQuery ( $q );
+        return view('frontView.rechercheActualite')->with([
+            
+            'actualites' => $actualites,
+            'labo'=>$labo,
+            
+        ]);;
+
+});
+/***/
 
 
 Route::get('/equipe',function(){
@@ -153,7 +326,10 @@ Route::get('/info_membre',function(){
 
 Route::get('/about',function(){
 	$equipe = Equipe::all();
-	return view('frontView.about')->with(['equi' => $equipe]);
+    $labo = Parametre::find('2');
+
+	return view('frontView.about')->with(['equi' => $equipe,
+                                              'labo'=>$labo]);
 });
 
 
@@ -200,7 +376,35 @@ Route::post('/contactStore','ContactController2@store');
 Route::get('/contact',function(){
 	$equipe = Equipe::all();
 	$adress=Parametre::find(2);
-	return view('frontView.contact')->with(['equi' => $equipe,'adress'=>$adress]);;
+	return view('frontView.contact')->with([
+        'equi' => $equipe,
+        'adress'=>$adress
+        ]);
+});
+
+Route::get('/actuality',function(){
+	$equipe = Equipe::all();
+	$actualites=Actualite::all();
+	return view('frontView.actualite')->with(['equi' => $equipe,'actualites'=>$actualites]);;
 });
 
 
+Route::get('/actuality/{id}',function($id){
+	$equipe = Equipe::all();
+	$actualite=Actualite::find($id);
+
+
+
+
+	/*$user=DB::table('actualites')
+                ->join('users', 'users.id', '=', 'actualites.user_id')
+                ->where('actualites.id', '=',$id)
+               ->get();*/
+
+	return view('frontView.info_actualite')->with([
+		'equi' => $equipe,
+		//'user'=>$user,
+		'actualite'=>$actualite
+		
+		]);
+});

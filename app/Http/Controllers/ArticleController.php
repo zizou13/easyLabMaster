@@ -22,11 +22,39 @@ class ArticleController extends Controller
 
 
 	//permet de lister les articles
-    public function index(){
+    /*public function index(){
 
     	$labo = Parametre::find('1');
     	$listarticle = Article::all();
     	return view('article.index' , ['articles' => $listarticle] ,['labo'=>$labo]);
+
+    }*/
+    public function index(){
+
+    	$labo = Parametre::find('1');
+    	$listarticle = Article::all();
+        $var = \DB::table('articles') ->groupBy('type')
+        ->select( \DB::raw('count(type) as total,type'))
+         ->orderBy('annee')
+        ->get();
+  
+        
+    $var2 = \DB::table('articles') ->groupBy('annee','type')
+        ->select( \DB::raw('count(type) as total,annee,type'))
+         ->orderBy('annee')
+        ->get();
+     $vars = \DB::table('articles') ->groupBy('annee')
+       ->select( \DB::raw('annee'))
+        ->orderBy('annee')
+        ->get();
+      
+
+    	return view('article.index' )->with([
+            'var' => $var,
+            'articles' => $listarticle,
+            'labo'=>$labo,
+            'var2' => $var2,
+            'vars' => $vars]);; 
 
     }
 

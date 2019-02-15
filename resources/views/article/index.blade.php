@@ -4,7 +4,83 @@
  @section('title','LRI | Liste des articles')
 
 @section('header_page')
+<!--JS Hadjer-->
+<script type="text/javascript">
+window.onload = function () {
+  var chart = new CanvasJS.Chart("chartContainer",
+  {
+    title:{
+      text: "Nombre d'article publié "
+    },
+    legend: {
+      maxWidth: 350,
+      itemWidth: 120
+    },
+    data: [
+    {
+      type: "pie",
+      showInLegend: true,
+      legendText: "{indexLabel}",
+      dataPoints: [
+                @foreach($var as $varss)
+        { y: {{$varss->total}}, indexLabel: "{{$varss->type}}" },
+                @endforeach
+                
+      ]
+    }
+    ]
+  });
+  chart.render();
+        var chart1 = new CanvasJS.Chart("chartContainer1",
+  {
+    title:{
+      text: "Nombre des articles publies par année"
+    },
+    axisY:{
+      title:"Coal (bn tonnes)",
+      valueFormatString: "#0.#,.",
+    },
+    data: [
+     @foreach($var2 as $va)
+            {
+    
+                
+                type: "stackedColumn",
+      legendText: "Anthracite & Bituminous",
+      showInLegend: "true",
+      dataPoints: [ 
+             @foreach($vars as $varss)
+            @if($varss->annee==$va->annee)
+             {  y: {{$va->total}} , label:"{{$va->type}}" },
+            @else
+            {  y:0 , label:" " },
+            @endif
+            @endforeach
+            ]  
+    },@endforeach
+                                   
+            {
+    
+                
+                type: "stackedColumn",
+      legendText: "Anthracite & Bituminous",
+      showInLegend: "true",
+      dataPoints: [ 
+             @foreach($vars as $varss)
+             {  y:0, label:"{{$varss->annee}}" },
+           
+            @endforeach
+            ]  
+    }
+    ]
+  });
+  chart1.render();
 
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<!--/JS HADJER-->
       <h1>
         Articles
         <small>Liste</small>
@@ -65,7 +141,12 @@
         </li>
         
           @if(Auth::user()->role->nom == 'admin' )
-
+          <li >
+          <a href="{{url('materiels')}}">
+            <i class="fa fa-desktop"></i> 
+            <span>Matériels</span>
+          </a>
+        </li>
           <li>
           <a href="{{url('parametre')}}">
             <i class="fa fa-gears"></i> 
@@ -94,6 +175,7 @@
               <div class="pull-right">
                 <a href="{{url('articles/create')}}" type="button" class="btn btn-block btn-success btn-lg"><i class="fa fa-plus"> Nouvel article</i></a>
               </div>
+              
               
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -180,4 +262,11 @@
       </div>
       
     </div>
+
+    <!--DIV-->
+    <div id="chartContainer1" style="height: 300px; width: 100%;">
+    </div>
+<div id="chartContainer" style="height: 300px; width: 100%;">
+    </div>
+    <!--/div-->
  @endsection

@@ -2,7 +2,7 @@
 @Section('content')
 <style type="text/css">
   #imgProjet{
-    height:auto ;
+    height:400px;
     width: 350px;
   }
 </style>

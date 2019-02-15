@@ -50,6 +50,8 @@ class EquipeController extends Controller
             }
     }
 
+    /*
+
     public function details($id)
     {
         $labo = Parametre::find('1');
@@ -62,17 +64,80 @@ class EquipeController extends Controller
             'labo'=>$labo,
         ]);
     } 
+    */
+    public function details($id)
+    {
+        $labo = Parametre::find('1');
+        $equipe = Equipe::find($id);
+        
+        $membres = User::where('equipe_id', $id)->get();
+        
+        $var = \DB::table('articles') ->groupBy('type')
+            ->join('article_user','article_user.article_id','=','articles.id')
+        ->join('users','article_user.user_id','=','users.id')
+        ->select( \DB::raw('count(type) as total,type'))
+            ->where('equipe_id', '=', $id)
+         ->orderBy('annee')
+        ->get();
+  
+        
+    $var2 = \DB::table('articles') ->groupBy('annee','type')
+        ->join('article_user','article_user.article_id','=','articles.id')
+        ->join('users','article_user.user_id','=','users.id')
+        ->select( \DB::raw('count(type) as total,annee,type'))
+        ->where('equipe_id', '=', $id)
+         ->orderBy('annee')
+        ->get();
+     $vars = \DB::table('articles') ->groupBy('annee')
+             ->join('article_user','article_user.article_id','=','articles.id')
+        ->join('users','article_user.user_id','=','users.id') 
+       ->select( \DB::raw('annee'))
+         ->where('equipe_id', '=', $id)// ->where('votes', '=', 100)
+        ->orderBy('annee')
+        ->get();
+        
+         $vars4 = \DB::table('article_user') ->groupBy ('annee')
+        
+        ->join('users', 'article_user.user_id', '=', 'users.id')
+        ->join('articles', 'articles.id', '=', 'article_user.article_id')
+        ->select( \DB::raw('annee '))
+        ->where('equipe_id', '=', $id)
+        ->get();
+
+
+        return view('equipe.details')->with([
+            
+            'equipe' => $equipe,
+            'membres' => $membres,
+            'labo'=>$labo,
+            'var' => $var,
+            'vars4' => $vars4,
+            'var2' => $var2,
+            'vars' => $vars,
+     
+        ]);
+    }
+
 
     public function store(equipeRequest $request)
     {
         $labo = Parametre::find('1');
         $equipe = new equipe();
+           if($request->hasFile('img')){
+            $file = $request->file('img');
+            $file_name = time().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('/uploads/equipe'),$file_name);
 
+        }
+        else{
+            $file_name="equipe3.jpg";
+        }
         $equipe->intitule = $request->input('intitule');
         $equipe->resume = $request->input('resume');
         $equipe->achronymes = $request->input('achronymes');
         $equipe->axes_recherche = $request->input('axes_recherche');
         $equipe->chef_id = $request->input('chef_id');
+        $equipe->photoEquipe = 'uploads/equipe/'.$file_name;
 
         $equipe->save();
 

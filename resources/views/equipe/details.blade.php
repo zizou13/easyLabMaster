@@ -2,8 +2,86 @@
 
  @section('title','LRI | Détails equipe')
 
-@section('header_page')
 
+<!--code js hajer-->
+<script type="text/javascript">
+window.onload = function () {
+  var chart = new CanvasJS.Chart("chartContainer",
+  {
+    title:{
+      text: "Nombre d'article publié pour chaque equipe"
+    },
+    legend: {
+      maxWidth: 350,
+      itemWidth: 120
+    },
+    data: [
+    {
+      type: "pie",
+      showInLegend: true,
+      legendText: "{indexLabel}",
+      dataPoints: [
+                @foreach($var as $varss)
+        { y: {{$varss->total}}, indexLabel: "{{$varss->type}}" },
+                @endforeach
+                
+      ]
+    }
+    ]
+  });
+  chart.render();
+        var chart1 = new CanvasJS.Chart("chartContainer1",
+  {
+    title:{
+      text: "Nombre des articles publies par année pour chaque equipe"
+    },
+    axisY:{
+      title:"Coal (bn tonnes)",
+      valueFormatString: "#0.#,.",
+    },
+    data: [
+     @foreach($var2 as $va)
+            {
+    
+                
+                type: "stackedColumn",
+      legendText: "Anthracite & Bituminous",
+      showInLegend: "true",
+      dataPoints: [ 
+             @foreach($vars as $varss)
+            @if($varss->annee==$va->annee)
+             {  y: {{$va->total}} , label:"{{$va->type}}" },
+            @else
+            {  y:0 , label:" " },
+            @endif
+            @endforeach
+            ]  
+    },@endforeach
+                                   
+            {
+    
+                
+                type: "stackedColumn",
+      legendText: "Anthracite & Bituminous",
+      showInLegend: "true",
+      dataPoints: [ 
+             @foreach($vars as $varss)
+             {  y:0, label:"{{$varss->annee}}" },
+           
+            @endforeach
+            ]  
+    }
+    ]
+  });
+  chart1.render();
+         
+      
+
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<!--/code js hajer-->
+@section('header_page')
        <h1>
         Equipes
         <small>Détails</small>
@@ -66,7 +144,12 @@
         </li>
         
           @if(Auth::user()->role->nom == 'admin' )
-
+           <li >
+          <a href="{{url('materiels')}}">
+            <i class="fa fa-desktop"></i> 
+            <span>Matériels</span>
+          </a>
+        </li>
           <li>
           <a href="{{url('parametre')}}">
             <i class="fa fa-gears"></i> 
@@ -246,6 +329,14 @@
                     </li>
                     @endforeach
                   </ul>
+
+
+
+ 
+
+
+
+
                   <!-- /.users-list -->
                 </div>
                 <!-- /.box-body -->
@@ -257,4 +348,16 @@
     
 
     </div>
+
+
+<!--div hajer-->
+    <div id="chartContainer" style="height: 300px; width: 100%;">
+    </div>
+    <div id="chartContainer1" style="height: 300px; width: 100%;">
+    </div>
+     <!--/div hajer-->
+
+
+   
 @endsection
+

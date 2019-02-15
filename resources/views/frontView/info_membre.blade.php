@@ -12,6 +12,11 @@
     }
    
 
+  #imgProjet{
+    height:400px;
+    width: 350px;
+  }
+
   </style>
  <div class="content-wrapper" >
         <div class="container">
@@ -132,7 +137,7 @@
         </div>
         
                          
-     
+     @if($projets)
     <section class="section bg-light">
       <div class="container">
         <div class="row">
@@ -143,11 +148,11 @@
             <p class="mb-0 lead">Un projet de recherche est un procédé scientifique visant à obtenir des informations et à formuler des hypothèses sur un phénomène social ou scientifique </p>
           </div>
         </div>
-                     @foreach($projets as $projet)
-          <a href="{{ url('projet/'.$projet->id)}}">
+                   @foreach($projets as $projet)
+          <a href="{{ url('projet/'.$projet->ghie)}}">
           <div class="col-md-4 element-animate">
             <div class="media d-block media-custom text-left">
-              <img src="{{asset('frontEnd')}}/img/imM/projet21.jpg" alt="Image Placeholder" class="img-fluid" >
+              <img src="{{asset($projet->photoProjet)}}" alt="Image Placeholder" class="img-fluid" id="imgProjet">
               <div class="media-body">
                 <span class="meta-post">{{$projet->type}}</span>
                 <h3 class="mt-0 text-black"><a href="#" class="text-black">
@@ -158,13 +163,15 @@
             </div>
           </div>
                            @endforeach
-          
+                          
       </div>
 
         
       </div>
     </section>
+    @endif
   <!--/**************************************************************************/-->  
+  @if($publications)
     <section class="section bg-light">
       <div class="container">
         <div class="row">
@@ -206,9 +213,14 @@
                            <?php
                 
                  
+                     $membrePublications = DB::table('article_user')
+                ->join('users', 'users.id', '=', 'article_user.user_id')
+                ->where('article_user.article_id', '=',$publication->id_pub)
+                
+                ->get();
 
                   foreach($membrePublications as $membrePublication) {
-                    
+                       
                       ?>
                           <li>{{$membrePublication->name}} {{$membrePublication->prenom}}</li>
                          <?php } ?>
@@ -224,7 +236,7 @@
 
       </div></div>
     </section>
-     
+    @endif 
      
     </body>
      <br>
